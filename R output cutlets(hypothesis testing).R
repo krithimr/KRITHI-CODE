@@ -1,0 +1,7 @@
+library(readxl)
+colnames(Cutlets)<-c("unita","unitb")
+View(Cutlets)
+attach(Cutlets)
+shapiro.test(unita)
+shapiro.test(unitb)
+t.test(unita,unitb,alternative="two.sided",conf.level =0.95,correct=TRUE) 
