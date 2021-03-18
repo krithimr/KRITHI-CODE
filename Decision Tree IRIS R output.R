@@ -1,0 +1,37 @@
+data("iris")
+install.packages("caret")
+install.packages("C50")
+library(caret)
+library(C50)
+library(ggplot2)
+set.seed(7)
+install.packages("tree")
+library(tree)
+View(iris)
+summary(iris)
+plot(iris)
+attach(iris)
+hist(Sepal.Length)
+jarque.bera.test(Sepal.Length)
+hist(Sepal.Width)
+jarque.bera.test(Sepal.Width)
+hist(Petal.Length)
+jarque.bera.test(Petal.Length)
+hist(Petal.Width)
+jarque.bera.test(Petal.Width)
+plot(Species)
+count(Species)
+setosa<-iris[iris$Species=="setosa",]
+versicolor <- iris[iris$Species=="versicolor",]
+virginica <- iris[iris$Species=="virginica",]
+traindata <- rbind(setosa[1:25,],versicolor[1:25,],virginica[1:25,])
+testdata <- rbind(setosa[26:50,],versicolor[26:50,],virginica[26:50,])
+traindata
+testdata
+model<-C5.0(traindata[,-5],traindata$Species)
+summary(model)
+plot(model)
+pred_train <- predict(model,traindata)
+tablea<-table(testdata$Species,pred_train)
+tablea
+sum(diag(tablea)/sum(tablea))
